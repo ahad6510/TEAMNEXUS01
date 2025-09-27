@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraBlue | The Future of Carbon MRV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #020617; /* slate-950 */
+            color: #e2e8f0; /* slate-200 */
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.15), transparent 60%);
+        }
+        .section-glow {
+            position: relative;
+        }
+        .section-glow::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 200px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.1), transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .card-border-glow {
+            border: 1px solid #1e293b; /* slate-800 */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-border-glow:hover {
+            border-color: #0ea5e9; /* sky-500 */
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.5); /* slate-800 with alpha */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(51, 65, 85, 0.5); /* slate-700 with alpha */
+        }
+        .manrope {
+             font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-card">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold tracking-wider manrope">
+                <span class="text-sky-400">Aura</span>Blue
+            </a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#dashboard" class="hover:text-sky-400 transition-colors">Dashboard</a>
+                <a href="#projects" class="hover:text-sky-400 transition-colors">Projects</a>
+                <a href="#marketplace" class="hover:text-sky-400 transition-colors">Marketplace</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button id="connectWalletBtn" class="bg-sky-500 hover:bg-sky-600 text-white font-semibold px-5 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2">
+                    <i data-lucide="wallet" class="w-5 h-5"></i>
+                    <span id="connectWalletText">Connect Wallet</span>
+                </button>
+                 <button id="mobile-menu-button" class="md:hidden p-2 rounded-md hover:bg-slate-700">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#dashboard" class="block py-2 hover:text-sky-400 transition-colors">Dashboard</a>
+            <a href="#projects" class="block py-2 hover:text-sky-400 transition-colors">Projects</a>
+            <a href="#marketplace" class="block py-2 hover:text-sky-400 transition-colors">Marketplace</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="min-h-screen flex items-center justify-center text-center pt-24 pb-12 hero-gradient overflow-hidden">
+             <div class="container mx-auto px-6 z-10">
+                <div class="bg-sky-500/10 border border-sky-500/30 rounded-full px-4 py-1.5 inline-block mb-4">
+                    <p class="text-sm text-sky-300">Blockchain Based Blue Carbon Mining</p>
+                </div>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold manrope leading-tight">
+                    Verifiable Blue Carbon.
+                    <br>
+                    <span class="text-sky-400">Secured by Blockchain.</span>
+                </h1>
+                <p class="mt-6 max-w-3xl mx-auto text-lg text-slate-300">
+                    AuraBlue is a decentralized MRV platform that tokenizes blue carbon assets, bringing unparalleled transparency, trust, and liquidity to the world's most critical climate solution.
+                </p>
+                <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="#projects" class="bg-sky-500 hover:bg-sky-600 text-white font-bold px-8 py-3 rounded-lg transition-transform hover:scale-105 w-full sm:w-auto">Explore Projects</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Impact Dashboard Section -->
+        <section id="dashboard" class="py-20 sm:py-24 section-glow">
+            <div class="container mx-auto px-6 text-center">
+                 <h2 class="text-3xl md:text-4xl font-bold manrope mb-4">Live Impact Dashboard</h2>
+                 <p class="max-w-2xl mx-auto text-slate-400 mb-12">Real-time data from our globally distributed network of verified blue carbon projects.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="glass-card card-border-glow p-8 rounded-xl">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-sky-500/10 rounded-lg border border-sky-500/30"><i data-lucide="leaf" class="w-8 h-8 text-sky-400"></i></div>
+                        <h3 class="text-4xl font-bold manrope" data-target="184523">0</h3>
+                        <p class="mt-2 text-slate-400">Verified Tons of CO₂ Sequestered</p>
+                    </div>
+                    <div class="glass-card card-border-glow p-8 rounded-xl">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-sky-500/10 rounded-lg border border-sky-500/30"><i data-lucide="globe-2" class="w-8 h-8 text-sky-400"></i></div>
+                        <h3 class="text-4xl font-bold manrope" data-target="9860">9,860</h3>
+                        <p class="mt-2 text-slate-400">Hectares of Ecosystem Restored</p>
+                    </div>
+                    <div class="glass-card card-border-glow p-8 rounded-xl">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-sky-500/10 rounded-lg border border-sky-500/30"><i data-lucide="dollar-sign" class="w-8 h-8 text-sky-400"></i></div>
+                        <h3 class="text-4xl font-bold manrope" data-target="12500000">$0</h3>
+                        <p class="mt-2 text-slate-400">Total Capital Deployed (USD)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 sm:py-24 section-glow bg-slate-900">
+            <div class="container mx-auto px-6">
+                 <div class="text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold manrope mb-4">Featured Projects</h2>
+                    <p class="max-w-2xl mx-auto text-slate-400 mb-12">Explore the pioneering blue carbon ecosystems in India.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="glass-card card-border-glow rounded-xl overflow-hidden group">
+                        <img src="https://placehold.co/600x400/020617/0ea5e9?text=Sundarbans+Mangroves" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold">Sundarbans Restoration</h3>
+                            <p class="text-slate-400 text-sm mb-4">West Bengal, India</p>
+                            <p class="text-slate-300 mb-4 text-sm">Reforesting 5,000 hectares of the world's largest mangrove forest, enhancing biodiversity and protecting coastlines.</p>
+                            <a href="#" class="text-sky-400 font-semibold flex items-center space-x-2 group">
+                                <span>View Project</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                     <div class="glass-card card-border-glow rounded-xl overflow-hidden group">
+                        <img src="https://placehold.co/600x400/020617/0ea5e9?text=Andaman+Seagrass" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold">Andaman Seagrass Project</h3>
+                            <p class="text-slate-400 text-sm mb-4">Andaman & Nicobar, India</p>
+                            <p class="text-slate-300 mb-4 text-sm">Protecting and expanding vital seagrass meadows, crucial nurseries for marine life and powerful carbon sinks.</p>
+                            <a href="#" class="text-sky-400 font-semibold flex items-center space-x-2 group">
+                                <span>View Project</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                     <div class="glass-card card-border-glow rounded-xl overflow-hidden group">
+                        <img src="https://placehold.co/600x400/020617/0ea5e9?text=Kerala+Salt+Marsh" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold">Vembanad Salt Marsh</h3>
+                            <p class="text-slate-400 text-sm mb-4">Kerala, India</p>
+                            <p class="text-slate-300 mb-4 text-sm">Conserving the unique tidal salt marshes in the Vembanad estuary, a critical habitat for migratory birds.</p>
+                             <a href="#" class="text-sky-400 font-semibold flex items-center space-x-2 group">
+                                <span>View Project</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marketplace Section -->
+        <section id="marketplace" class="py-20 sm:py-24 section-glow">
+            <div class="container mx-auto px-6">
+                 <div class="text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold manrope mb-4">Carbon Credit Marketplace</h2>
+                    <p class="max-w-2xl mx-auto text-slate-400 mb-12">Purchase tokenized, verified blue carbon credits directly from project developers.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Credit Card 1 -->
+                    <div class="glass-card card-border-glow rounded-xl p-4 group">
+                        <div class="relative rounded-lg overflow-hidden mb-4">
+                             <img src="https://placehold.co/400x400/0f172a/0ea5e9?text=AB-SUN-819A" alt="Carbon Credit NFT" class="w-full h-auto">
+                             <div class="absolute top-2 right-2 bg-slate-900/50 text-xs px-2 py-1 rounded-full">Vintage: 2024</div>
+                        </div>
+                        <h4 class="font-bold">Sundarbans Restoration</h4>
+                        <p class="text-sm text-slate-400 mb-3">1 Ton CO₂e</p>
+                        <div class="flex justify-between items-center">
+                            <p class="text-lg font-bold text-sky-400">~16.75 USDC</p>
+                            <button class="bg-sky-600/50 text-white text-sm font-semibold px-4 py-1.5 rounded-md hover:bg-sky-600 transition-colors">Buy Now</button>
+                        </div>
+                    </div>
+                     <!-- Credit Card 2 -->
+                    <div class="glass-card card-border-glow rounded-xl p-4 group">
+                        <div class="relative rounded-lg overflow-hidden mb-4">
+                             <img src="https://placehold.co/400x400/0f172a/0ea5e9?text=AB-AND-33C7" alt="Carbon Credit NFT" class="w-full h-auto">
+                             <div class="absolute top-2 right-2 bg-slate-900/50 text-xs px-2 py-1 rounded-full">Vintage: 2024</div>
+                        </div>
+                        <h4 class="font-bold">Andaman Seagrass Project</h4>
+                        <p class="text-sm text-slate-400 mb-3">1 Ton CO₂e</p>
+                        <div class="flex justify-between items-center">
+                            <p class="text-lg font-bold text-sky-400">~18.50 USDC</p>
+                            <button class="bg-sky-600/50 text-white text-sm font-semibold px-4 py-1.5 rounded-md hover:bg-sky-600 transition-colors">Buy Now</button>
+                        </div>
+                    </div>
+                     <!-- Credit Card 3 -->
+                    <div class="glass-card card-border-glow rounded-xl p-4 group">
+                        <div class="relative rounded-lg overflow-hidden mb-4">
+                             <img src="https://placehold.co/400x400/0f172a/0ea5e9?text=AB-VEM-B204" alt="Carbon Credit NFT" class="w-full h-auto">
+                             <div class="absolute top-2 right-2 bg-slate-900/50 text-xs px-2 py-1 rounded-full">Vintage: 2025</div>
+                        </div>
+                        <h4 class="font-bold">Vembanad Salt Marsh</h4>
+                        <p class="text-sm text-slate-400 mb-3">1 Ton CO₂e</p>
+                        <div class="flex justify-between items-center">
+                            <p class="text-lg font-bold text-sky-400">~14.25 USDC</p>
+                            <button class="bg-sky-600/50 text-white text-sm font-semibold px-4 py-1.5 rounded-md hover:bg-sky-600 transition-colors">Buy Now</button>
+                        </div>
+                    </div>
+                     <!-- Credit Card 4 -->
+                    <div class="glass-card card-border-glow rounded-xl p-4 group">
+                        <div class="relative rounded-lg overflow-hidden mb-4">
+                             <img src="https://placehold.co/400x400/0f172a/0ea5e9?text=AB-SUN-955E" alt="Carbon Credit NFT" class="w-full h-auto">
+                             <div class="absolute top-2 right-2 bg-slate-900/50 text-xs px-2 py-1 rounded-full">Vintage: 2025</div>
+                        </div>
+                        <h4 class="font-bold">Sundarbans Restoration</h4>
+                        <p class="text-sm text-slate-400 mb-3">1 Ton CO₂e</p>
+                        <div class="flex justify-between items-center">
+                            <p class="text-lg font-bold text-sky-400">~17.00 USDC</p>
+                            <button class="bg-sky-600/50 text-white text-sm font-semibold px-4 py-1.5 rounded-md hover:bg-sky-600 transition-colors">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-slate-900/50 border-t border-slate-800">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                 <a href="#" class="text-xl font-bold tracking-wider manrope mb-4 md:mb-0"><span class="text-sky-400">Aura</span>Blue</a>
+                <p class="text-sm text-slate-400 mb-4 md:mb-0">&copy; 2025 AuraBlue Protocol. All Rights Reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-slate-400 hover:text-sky-400"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-sky-400"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-sky-400"><i data-lucide="github" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                // Close mobile menu on link click
+                if(!mobileMenu.classList.contains('hidden')){
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Mock Wallet Connection
+        const connectWalletBtn = document.getElementById('connectWalletBtn');
+        const connectWalletText = document.getElementById('connectWalletText');
+        let isConnected = false;
+        connectWalletBtn.addEventListener('click', () => {
+            if(isConnected) return;
+            connectWalletText.textContent = 'Connecting...';
+            connectWalletBtn.disabled = true;
+            setTimeout(() => {
+                const mockAddress = "0x" + Array(4).fill(0).map(() => Math.floor(Math.random() * 0xFFF).toString(16).padStart(3, '0')).join('') + "..." + Array(4).fill(0).map(() => Math.floor(Math.random() * 0xFFF).toString(16).padStart(3, '0')).join('');
+                connectWalletText.textContent = mockAddress.substring(0, 6) + '...' + mockAddress.substring(mockAddress.length - 4);
+                isConnected = true;
+                connectWalletBtn.disabled = false;
+                connectWalletBtn.classList.remove('bg-sky-500', 'hover:bg-sky-600');
+                connectWalletBtn.classList.add('bg-green-500');
+            }, 1500);
+        });
+
+        // Animate counters on scroll
+        const counters = document.querySelectorAll('[data-target]');
+        const speed = 200; // The lower the slower
+
+        const animateCounters = (counter) => {
+            const target = +counter.getAttribute('data-target');
+            let count = +counter.innerText.replace(/,|\$/g, '');
+            const inc = target / speed;
+
+            if (count < target) {
+                const newCount = Math.ceil(count + inc);
+                if(counter.getAttribute('data-target').startsWith('125')){
+                     counter.innerText = '$' + newCount.toLocaleString('en-US');
+                } else {
+                     counter.innerText = newCount.toLocaleString('en-US');
+                }
+                setTimeout(() => animateCounters(counter), 20);
+            } else {
+                if(counter.getAttribute('data-target').startsWith('125')){
+                    counter.innerText = '$' + target.toLocaleString('en-US');
+                } else {
+                    counter.innerText = target.toLocaleString('en-US');
+                }
+            }
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => {
+            observer.observe(counter);
+        });
+    </script>
+</body>
+</html>
+
