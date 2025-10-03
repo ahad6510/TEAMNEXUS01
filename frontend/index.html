@@ -237,7 +237,7 @@
         </div>
     </footer>
 
-   <script>
+    <script>
 lucide.createIcons();
 
 // --- Mobile Menu Toggle ---
@@ -247,7 +247,7 @@ mobileMenuButton.addEventListener('click', () => {
     mobileMenu.classList.toggle('hidden');
 });
 
-// --- Smooth scroll for anchor links ---
+// --- Smooth Scroll ---
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -259,34 +259,40 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // --- Wallet Connect ---
 const connectWalletBtn = document.getElementById('connectWalletBtn');
 const connectWalletText = document.getElementById('connectWalletText');
+let appSigner;
 let isConnected = false;
 
 async function connectWallet() {
-    if(window.ethereum) {
-        try {
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            await provider.send("eth_requestAccounts", []);
-            const signer = provider.getSigner();
-            const address = await signer.getAddress();
-            connectWalletText.textContent = address.slice(0,6) + "..." + address.slice(-4);
-            connectWalletBtn.classList.remove('bg-sky-500');
-            connectWalletBtn.classList.add('bg-green-500');
-            window.appSigner = signer;
-            isConnected = true;
-        } catch(e) { alert("Wallet connection rejected."); }
-    } else {
-        // Mock fallback
-        if(isConnected) return;
-        const mockAddress = "0x" + Math.floor(Math.random()*1e16).toString(16);
-        connectWalletText.textContent = mockAddress.slice(0,6) + "..." + mockAddress.slice(-4);
-        window.appSigner = { getAddress: async () => mockAddress, sendTransaction: async (tx) => { console.log("MOCK TX", tx); return {hash: "0xMOCK"}; } };
-        isConnected = true;
+    try {
+        const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545");
+        appSigner = provider.getSigner(0); // Hardhat first account = owner
+        const address = await appSigner.getAddress();
+        connectWalletText.textContent = address.slice(0,6) + "..." + address.slice(-4);
         connectWalletBtn.classList.remove('bg-sky-500');
         connectWalletBtn.classList.add('bg-green-500');
+        console.log("Connected to local Hardhat account:", address);
+        isConnected = true;
+        await updateDashboard();
+    } catch(e) {
+        console.error("Wallet connection failed:", e);
+        alert("Failed to connect wallet. Check console.");
     }
 }
-
 connectWalletBtn.addEventListener('click', connectWallet);
+
+// --- Token Contract Setup ---
+const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // deployed CarbonToken
+const tokenABI = [
+    "function mintCredits(uint256 projectId, address to, uint256 amount) external",
+    "function balanceOf(address account) view returns (uint256)",
+    "function getProjectCredits(uint256 projectId) view returns (uint256)",
+    "function transfer(address to, uint256 amount) returns (bool)"
+];
+
+
+
+
+
 
 // --- Dashboard Counter Animation ---
 document.querySelectorAll('h3[data-target]').forEach(counter => {
@@ -300,27 +306,128 @@ document.querySelectorAll('h3[data-target]').forEach(counter => {
     }, 10);
 });
 
-// --- Mint / Buy Now ---
-const contractAddress = "0x9CD959e05d9b1190D2b161ac6204943C8bD3D0c6";
-const minimalABI = ["function mint(address to, uint256 amount) public"];
 
-async function mintToken() {
-    if(!isConnected || !window.appSigner) { alert("Connect wallet first!"); return; }
-    const contract = new ethers.Contract(contractAddress, minimalABI, window.appSigner);
+// --- DASHBOARD COUNTERS ---
+async function updateDashboard() {
+    if(!appSigner) return;
+
+    const contract = new ethers.Contract(contractAddress, tokenABI, appSigner);
+    const address = await appSigner.getAddress();
+
+    const co2 = await contract.balanceOf(address);
+    document.querySelector('h3[data-target="184523"]').textContent = co2.toString();
+
+    const project1 = await contract.getProjectCredits(1);
+    document.querySelector('h3[data-target="9860"]').textContent = project1.toString();
+}
+updateDashboard();
+
+
+
+
+
+
+
+
+// // --- Dashboard Update ---
+// async function updateDashboard() {
+//     if(!appSigner) return;
+
+//     try {
+//         const contract = new ethers.Contract(contractAddress, tokenABI, appSigner);
+//         const address = await appSigner.getAddress();
+
+//         const co2 = await contract.balanceOf(address);
+//         const project1 = await contract.getProjectCredits(1);
+
+//         animateCounter('184523', co2);
+//         animateCounter('9860', project1);
+//         // You can add other counters similarly
+//     } catch(e) {
+//         console.error("Dashboard update failed:", e);
+//     }
+// }
+
+// // --- Counter Animation Helper ---
+// function animateCounter(dataTarget, finalValue) {
+//     const counter = document.querySelector(`h3[data-target="${dataTarget}"]`);
+//     if(!counter) return;
+
+//     finalValue = Number(finalValue.toString());
+//     let count = 0;
+//     const step = Math.ceil(finalValue / 200);
+//     const interval = setInterval(() => {
+//         count += step;
+//         if(count >= finalValue) { count = finalValue; clearInterval(interval); }
+//         counter.textContent = finalValue >= 1000 ? count.toLocaleString() : count;
+//     }, 10);
+// }
+
+// --- Mint / Buy Now ---
+document.querySelectorAll('.buy-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+        if(!isConnected || !appSigner) return alert("Connect wallet first!");
+        const contract = new ethers.Contract(contractAddress, tokenABI, appSigner);
+
+        // get projectId from HTML data attribute (add data-project-id="X" to your cards)
+        const projectId = btn.dataset.projectId || 1; // fallback to 1 if missing
+
+        try {
+            const signerAddress = await appSigner.getAddress();
+            console.log(`Minting 1 token to ${signerAddress} for projectId ${projectId}`);
+            const tx = await contract.mintCredits(projectId, signerAddress, 1);
+            console.log("Transaction sent! Hash:", tx.hash);
+            await tx.wait();
+            console.log("Token minted successfully!");
+            alert("Token minted!");
+
+            await updateDashboard();
+        } catch(e) {
+            console.error("Mint failed:", e);
+            alert("Mint failed! Check console.");
+        }
+    });
+});
+
+// --- Send Tokens (Section & Modal) ---
+async function sendTokens(to, amount) {
+    if(!isConnected || !appSigner) return alert("Connect wallet first!");
+    if(!to || !amount) return alert("Enter recipient and amount!");
+
+    const contract = new ethers.Contract(contractAddress, tokenABI, appSigner);
     try {
-        const signerAddress = await window.appSigner.getAddress();
-        const tx = await contract.mint(signerAddress, 1); // Mint 1 token
-        alert("Transaction sent! Hash: " + tx.hash);
+        const tx = await contract.transfer(to, amount);
         await tx.wait();
-        alert("Token minted successfully!");
+        alert("Tokens sent!");
+        await updateDashboard();
     } catch(e) {
         console.error(e);
-        alert("Mint failed. Check console.");
+        alert("Send failed. Check console.");
     }
 }
 
-// Attach to all Buy Now buttons
-document.querySelectorAll('.buy-btn').forEach(btn => btn.addEventListener('click', mintToken));
+// Section send
+document.getElementById('sendTokenBtn').addEventListener('click', () => {
+    const to = document.getElementById('recipient').value;
+    const amount = document.getElementById('amount').value;
+    sendTokens(to, amount);
+});
+
+// Modal send
+document.getElementById('modalSend').addEventListener('click', () => {
+    const to = document.getElementById('modalRecipient').value;
+    const amount = document.getElementById('modalAmount').value;
+    sendTokens(to, amount);
+    closeModal();
+});
+
+// Modal open/close
+function closeModal() { document.getElementById('sendTokenModal').classList.add('hidden'); }
+document.getElementById('modalCancel').addEventListener('click', closeModal);
+document.getElementById('modalClose').addEventListener('click', closeModal);
+
+// Optional: open modal (hook this to a button if needed)
+
 </script>
 
 
