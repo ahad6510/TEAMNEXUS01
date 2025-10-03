@@ -1,23 +1,25 @@
-# TEAM NEXUS Mint dApp
+# TEAM NEXUS | Blockchain-Based Blue Carbon Registry and MRV System
 
-This is a simple decentralized application (dApp) for minting carbon tokens/NFTs on the Ethereum blockchain. Users can connect their wallet (MetaMask) and mint tokens directly from the browser.
+TEAM NEXUS is a decentralized platform for tracking, verifying, and tokenizing blue carbon projects. It enables transparent monitoring of carbon sequestration, ecosystem restoration, and carbon credit trading using blockchain technology.
 
 ## Features
 
-- Connect Ethereum wallet (MetaMask)
-- Mint carbon tokens with a single click
-- Displays success/failure alerts for transactions
+- **Connect Wallet**: Supports MetaMask for Ethereum account integration.
+- **Mint Carbon Tokens**: Users can mint tokenized carbon credits.
+- **Live Impact Dashboard**: Real-time display of verified CO₂ sequestered, hectares restored, and total capital deployed.
+- **Project Showcase**: Highlights featured blue carbon projects.
+- **Marketplace**: Buy verified, tokenized carbon credits directly from projects.
+- **Send Tokens**: Transfer carbon tokens to other wallets.
 
 ## Prerequisites
 
-- Node.js (for local development if needed)
 - MetaMask installed in your browser
-- An Ethereum account with some ETH for gas fees
+- Ethereum account with sufficient ETH for gas fees
 
 ## Getting Started
 
-1. Clone or download this repository:
+1. Clone or download the repository:
 
 ```bash
-git clone https://github.com/yourusername/team-nexus-dapp.git
-cd team-nexus-dapp
+git clone https://github.com/yourusername/team-nexus.git
+cd team-nexus
