@@ -1,0 +1,19 @@
+{
+  "name": "bluecarbon",
+  "version": "1.0.0",
+  "description": "DEPLOY LINK (CLICK THIS TO SEE WEBSITE) - https://68d81d9a4192f030811c205d--velvety-salmiakki-a1d380.netlify.app/ THIS IS THE FRONTEND MODEL OF THE WEBSITE",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "hardhat": "^3.0.6"
+  },
+  "dependencies": {
+    "axios": "^1.12.2",
+    "ethers": "^6.15.0"
+  }
+}
